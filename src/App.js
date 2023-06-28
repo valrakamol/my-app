@@ -1,23 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './Header';
+import Footer from './Footer';
+import { useState } from 'react';
 
 function App() {
+  const [num, setNum] = useState(0);
+  const [Total, setTotal] = useState('');
+
+  const PrimeNumCheck = (number) => {
+    let result = '';
+    if (number % 2 === 0) {
+      result = '${number} <b>ไม่</b>เป็นจำนวนเฉพาะ';
+    } else {
+      result = '${number} เป็นจำนวนเฉพาะ';
+    }
+    setTotal(result);
+  };
+
+  const Add = () => {
+    setNum(num + 1);
+    PrimeNumCheck(num + 1);
+  };
+
+  const Delete = () => {
+    setNum(num - 1);
+    PrimeNumCheck(num - 1);
+  };
+
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <div className="MyContent">
+      <h1>{num}</h1><br></br>
+      <button className="btn-default" onClick={Add}>เพิ่ม</button>{'  '}
+      <button className="btn-secon" onClick={Delete}>ลด</button>{'  '}
+      <br></br><br></br>
+      <span dangerouslySetInnerHTML={{ __html: Total }}></span>
+      </div>
+    <Footer />
     </div>
   );
 }
